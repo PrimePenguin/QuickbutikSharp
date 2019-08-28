@@ -1,4 +1,4 @@
-# Quickbutik: A .NET library for Starweb.
+# Quickbutik: A .NET library for Quickbutik.
 
 Quickbutik is a .NET library that enables you to authenticate and make API calls to Quickbutik. It's great for 
 building custom Quickbutik Apps using C# and .NET. You can quickly and easily get up and running with Quickbutik
