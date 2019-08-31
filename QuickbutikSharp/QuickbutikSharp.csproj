@@ -3,7 +3,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AssemblyName>QuickbutikSharp</AssemblyName>
     <RootNamespace>QuickbutikSharp</RootNamespace>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
   </PropertyGroup>
   <PropertyGroup>
     <Description>QuickbutikSharp is a C# and .NET library that helps developers easily authenticate with and manage Quickbutik stores.</Description>

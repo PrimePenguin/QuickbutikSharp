@@ -12,7 +12,7 @@ namespace QuickbutikSharp.Entities
         public string Id { get; set; }
 
         /// <summary>
-        /// item number 
+        /// item number
         /// </summary>
         [JsonProperty("sku")]
         public string Sku { get; set; }
@@ -90,7 +90,7 @@ namespace QuickbutikSharp.Entities
         public string DateModified { get; set; }
 
         /// <summary>
-        /// Availability 
+        /// Availability
         /// </summary>
         [JsonProperty("stock")]
         public int Stock { get; set; }
@@ -134,8 +134,8 @@ namespace QuickbutikSharp.Entities
         [JsonProperty("visible")] public int Visible { get; set; }
 
         /// <summary>
-        /// EAN code
+        /// GTIN
         /// </summary>
-        [JsonProperty("gtin")] public string EANCode { get; set; }
+        [JsonProperty("gtin")] public string Gtin { get; set; }
     }
 }
