@@ -6,12 +6,12 @@
     <Description>QuickbutikSharp is a C# and .NET library that helps developers easily authenticate with and manage Quickbutik stores.</Description>
     <Authors>Ajay Kumar</Authors>
     <Copyright>Prime Penguin</Copyright>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/PrimePenguin/PrimePenguin.Quickbutik/master/LICENSE</PackageLicenseUrl>
-    <PackageProjectUrl>https://github.com/PrimePenguin/PrimePenguin.Quickbutik</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/PrimePenguin/PrimePenguin.Quickbutik</RepositoryUrl>
+    <PackageLicenseUrl>https://raw.githubusercontent.com/PrimePenguin/Quickbutik/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/PrimePenguin/Quickbutik</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/PrimePenguin/Quickbutik</RepositoryUrl>
     <PackageTags>Quickbutik,ecommerce</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <PackageIconUrl>https://raw.githubusercontent.com/PrimePenguin/PrimePenguin.Quickbutik/master/PrimePenguin.png</PackageIconUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/PrimePenguin/Quickbutik/master/PrimePenguin.png</PackageIconUrl>
   </PropertyGroup>
   <ItemGroup>
     <Folder Include="Extensions\" />
