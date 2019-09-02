@@ -12,6 +12,6 @@ namespace QuickbutikSharp.Infrastructure
 
         public QuickbutikRateLimitException(string message) : base(message) { }
 
-        public QuickbutikRateLimitException(HttpStatusCode httpStatusCode, string type, string subType, string message, string details) : base(httpStatusCode, type, subType, message, details) { }
+        public QuickbutikRateLimitException(HttpStatusCode httpStatusCode, string message, int code, string error) : base(httpStatusCode, message, code, error) { }
     }
 }
