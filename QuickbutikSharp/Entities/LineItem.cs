@@ -2,7 +2,7 @@
 
 namespace QuickbutikSharp.Entities
 {
-    public class OrderedProduct
+    public class LineItem
     {
         [JsonProperty("product_id")] public string ProductId { get; set; }
 

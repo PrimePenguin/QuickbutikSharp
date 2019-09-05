@@ -87,10 +87,10 @@ namespace QuickbutikSharp.Entities
         ///  ordered products
         /// </summary>
         [JsonProperty("products")]
-        public IEnumerable<OrderedProduct> Products { get; set; }
+        public IEnumerable<LineItem> Products { get; set; }
 
         /// <summary>
-        /// customer 
+        /// customer
         /// </summary>
         [JsonProperty("customer")]
         public Customer Customer { get; set; }

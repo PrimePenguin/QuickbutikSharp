@@ -27,12 +27,13 @@ namespace QuickbutikSharp.Services.Order
         }
 
         /// <summary>
-        /// Returns order with specified order id 
+        /// Returns order with specified order id
         /// </summary>
-        public virtual async Task<Entities.Order[]> GetAsync(string orderId)
+        public virtual async Task<Entities.Order> GetAsync(string orderId)
         {
             var req = PrepareRequestForSingleEntity($"orders?order_id={orderId}");
-            return await ExecuteRequestAsync<Entities.Order[]>(req, HttpMethod.Get);
+            var orders = await ExecuteRequestAsync<Entities.Order[]>(req, HttpMethod.Get);
+            return orders[0];
         }
 
         /// <summary>

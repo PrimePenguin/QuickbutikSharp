@@ -27,7 +27,7 @@ namespace QuickbutikSharp.Services.Product
         }
 
         /// <summary>
-        /// Returns product with specified product id 
+        /// Returns product with specified product id
         /// </summary>
         public virtual async Task<Entities.Product> GetAsync(string productId)
         {
