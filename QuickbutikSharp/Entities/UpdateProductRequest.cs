@@ -53,5 +53,11 @@ namespace QuickbutikSharp.Entities
         public string DisableMinusQuantity { get; set; }
 
         [JsonProperty("visible")] public int Visible { get; set; }
+
+        /// <summary>
+        ///  Availability
+        /// </summary>
+        [JsonProperty("stock")]
+        public int Stock { get; set; }
     }
 }
