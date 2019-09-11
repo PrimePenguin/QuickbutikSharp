@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using QuickbutikSharp.Services.Product;
 
@@ -10,7 +11,7 @@ namespace QuickbutikSharp.Infrastructure
         {
             using (var client = new HttpClient())
             {
-                using (var msg = new HttpRequestMessage(HttpMethod.Head, url)
+                using (var msg = new HttpRequestMessage(HttpMethod.Get, url)
                 {
                     Headers =
                     {
@@ -22,7 +23,10 @@ namespace QuickbutikSharp.Infrastructure
                     try
                     {
                         var response = await client.SendAsync(msg);
-                        return response.Headers.Contains("Set-Cookie");
+                        if (!response.IsSuccessStatusCode) return false;
+
+                        var message = await response.Content.ReadAsStringAsync();
+                        return message.Contains("Quickbutik", StringComparison.OrdinalIgnoreCase);
                     }
                     catch (HttpRequestException)
                     {
