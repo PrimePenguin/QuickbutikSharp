@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using QuickbutikSharp.Entities;
@@ -58,14 +59,14 @@ namespace QuickbutikSharp.Services.Product
         /// </summary>
         /// <param name="request">product to be updated</param>
         /// <returns>The <see cref="Entities.Product"/>.</returns>
-        public virtual async Task<Entities.Product> UpdateAsync(UpdateProductRequest request)
+        public virtual async Task<Entities.Product> UpdateAsync(List<UpdateProductRequest> request)
         {
             var req = PrepareRequest($"products");
             HttpContent content = null;
 
             if (request != null)
             {
-                var body = request.ToDictionary();
+                var body = request.ToDictionary(x => x);
                 content = new JsonContent(body);
             }
             return await ExecuteRequestAsync<Entities.Product>(req, HttpMethod.Put, content);

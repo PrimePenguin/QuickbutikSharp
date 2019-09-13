@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using QuickbutikSharp.Entities;
@@ -34,21 +35,21 @@ namespace QuickbutikSharp.Services.Order
             var req = PrepareRequestForSingleEntity($"orders?order_id={orderId}");
             var orders = await ExecuteRequestAsync<Entities.Order[]>(req, HttpMethod.Get);
             return orders[0];
-        }
+        }   
 
         /// <summary>
         /// update an existing order
         /// </summary>
         /// <param name="request">order to be updated</param>
         /// <returns>The <see cref="Entities.Order"/>.</returns>
-        public virtual async Task<Entities.Order> UpdateAsync(UpdateOrderRequest request)
+        public virtual async Task<Entities.Order> UpdateAsync(List<UpdateOrderRequest> request)
         {
             var req = PrepareRequest($"orders");
             HttpContent content = null;
 
             if (request != null)
             {
-                var body = request.ToDictionary();
+                var body = request.ToDictionary(x => x);
                 content = new JsonContent(body);
             }
             return await ExecuteRequestAsync<Entities.Order>(req, HttpMethod.Put, content);
