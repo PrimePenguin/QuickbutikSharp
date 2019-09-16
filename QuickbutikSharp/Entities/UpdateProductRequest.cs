@@ -8,13 +8,13 @@ namespace QuickbutikSharp.Entities
         /// Product ID - that you want to update
         /// </summary>
         [JsonProperty("product_id")]
-        public int ProductId { get; set; }
+        public int? ProductId { get; set; }
 
         /// <summary>
         /// Product variant ID - that you want to update (if it is a variant)
         /// </summary>
         [JsonProperty("variant_id")]
-        public int VariantId { get; set; }
+        public int? VariantId { get; set; }
 
         /// <summary>
         /// (OR) Article number - on the product / variant you wish to update
@@ -26,7 +26,7 @@ namespace QuickbutikSharp.Entities
         /// price
         /// </summary>
         [JsonProperty("price")]
-        public int Price { get; set; }
+        public int? Price { get; set; }
 
         /// <summary>
         /// Purchase price (excl. VAT)
@@ -58,6 +58,6 @@ namespace QuickbutikSharp.Entities
         ///  Availability
         /// </summary>
         [JsonProperty("stock")]
-        public int Stock { get; set; }
+        public int? Stock { get; set; }
     }
 }
