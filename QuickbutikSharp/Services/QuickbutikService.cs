@@ -134,6 +134,7 @@ namespace QuickbutikSharp.Services
             {
                 var error = JsonConvert.DeserializeObject<QuickbutikException>(rawResponse);
                 error.HttpStatusCode = code;
+                if (error.Message == null) error.Message = $"{defaultMessage}-{error.Error}";
                 throw error;
             }
             {
