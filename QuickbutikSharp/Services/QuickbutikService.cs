@@ -127,19 +127,20 @@ namespace QuickbutikSharp.Services
                 throw error;
             }
 
-            var contentType = response.Content.Headers.GetValues("Content-Type").FirstOrDefault();
             var defaultMessage = $"Response did not indicate success. Status: {(int)code} {response.ReasonPhrase}.";
 
-            if (contentType.StartsWithIgnoreCase("application/json") || contentType.StartsWithIgnoreCase("text/json"))
+            QuickbutikException exception;
+            try
             {
-                var error = JsonConvert.DeserializeObject<QuickbutikException>(rawResponse);
-                error.HttpStatusCode = code;
-                if (error.Message == null) error.Message = $"{defaultMessage}-{error.Error}";
-                throw error;
+                exception = JsonConvert.DeserializeObject<QuickbutikException>(rawResponse);
             }
+            catch (Exception e)
             {
                 throw new QuickbutikException(defaultMessage) { HttpStatusCode = code };
             }
+            exception.HttpStatusCode = code;
+            if (exception.Message == null) exception.Message = $"{defaultMessage}-{exception.Error}";
+            throw exception;
         }
     }
 }
