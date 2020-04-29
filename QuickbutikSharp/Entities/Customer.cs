@@ -23,5 +23,7 @@ namespace QuickbutikSharp.Entities
         [JsonProperty("zipcode")] public string ZipCode { get; set; }
 
         [JsonProperty("country")] public string Country { get; set; }
+
+        [JsonProperty("notes")] public string Notes { get; set; }
     }
 }
