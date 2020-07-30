@@ -19,7 +19,7 @@ namespace QuickbutikSharp.Services.Product
         }
 
         /// <summary>
-        /// Returns collection of Products
+        /// Fetch products in store
         /// </summary>
         public virtual async Task<List<Entities.Product>> GetAsync()
         {
@@ -55,7 +55,7 @@ namespace QuickbutikSharp.Services.Product
         }
 
         /// <summary>
-        /// update an existing product
+        /// Update products in store. <para>Product can be identified by product_id/variant_id or directly with SKU/Article Number if unique.</para> 
         /// </summary>
         /// <param name="request">product to be updated</param>
         /// <returns>The <see cref="Entities.Product"/>.</returns>

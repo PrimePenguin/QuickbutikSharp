@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using QuickbutikSharp.Entities;
 using QuickbutikSharp.Extensions;
@@ -19,11 +20,28 @@ namespace QuickbutikSharp.Services.Order
         }
 
         /// <summary>
-        /// Returns collection of orders
+        /// Fetch store orders.
         /// </summary>
-        public virtual async Task<List<Entities.Order>> GetAsync()
+        public virtual async Task<List<Entities.Order>> GetAsync(OrdersQueryRequest query)
         {
-            var req = PrepareRequest($"orders");
+            var rqBuilder = new StringBuilder();
+
+            rqBuilder.Append("orders");
+            if (!string.IsNullOrEmpty(query.FromDatePaid)) rqBuilder.Append($"?from_date_paid={query.FromDatePaid}");
+
+            if (!string.IsNullOrEmpty(query.FromStatusDate))
+            {
+                var separator = rqBuilder.ToString().Contains("?") ? "&" : "?";
+                rqBuilder.Append($"{separator}from_status_date={query.FromStatusDate}");
+            }
+
+            if (!string.IsNullOrEmpty(query.Status))
+            {
+                var separator = rqBuilder.ToString().Contains("?") ? "&" : "?";
+                rqBuilder.Append($"{separator}status={query.Status}");
+            }
+
+            var req = PrepareRequest(rqBuilder.ToString());
             return await ExecuteRequestAsync<List<Entities.Order>>(req, HttpMethod.Get);
         }
 
@@ -38,7 +56,7 @@ namespace QuickbutikSharp.Services.Order
         }
 
         /// <summary>
-        /// update an existing order
+        /// Update orders and add/modify order content.
         /// </summary>
         /// <param name="request">order to be updated</param>
         public virtual async Task<Dictionary<string, UpdateOrderResponse>> UpdateAsync(List<UpdateOrderRequest> request)
