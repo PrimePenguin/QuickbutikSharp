@@ -61,7 +61,7 @@ namespace QuickbutikSharp.Services.Order
         /// Update orders and add/modify order content.
         /// </summary>
         /// <param name="request">order to be updated</param>
-        public virtual async Task<Dictionary<string, UpdateOrderResponse>> UpdateAsync(List<UpdateOrderRequest> request)
+        public virtual async Task<UpdateOrderResult> UpdateAsync(List<UpdateOrderRequest> request)
         {
             var req = PrepareRequest($"orders");
             HttpContent content = null;
@@ -74,7 +74,7 @@ namespace QuickbutikSharp.Services.Order
 
             try
             {
-                return await ExecuteRequestAsync<Dictionary<string, UpdateOrderResponse>>(req, HttpMethod.Put, content);
+                return await ExecuteRequestAsync<UpdateOrderResult>(req, HttpMethod.Put, content);
             }
             catch (JsonSerializationException)
             {
