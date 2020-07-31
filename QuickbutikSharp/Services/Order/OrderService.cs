@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -68,12 +69,17 @@ namespace QuickbutikSharp.Services.Order
             if (request != null)
             {
                 var body = request.ToDictionary(x => x);
-
-                var a = JsonConvert.SerializeObject(body, Formatting.Indented);
-
                 content = new JsonContent(body);
             }
-            return await ExecuteRequestAsync<Dictionary<string, UpdateOrderResponse>>(req, HttpMethod.Put, content);
+
+            try
+            {
+                return await ExecuteRequestAsync<Dictionary<string, UpdateOrderResponse>>(req, HttpMethod.Put, content);
+            }
+            catch (JsonSerializationException)
+            {
+                return null;
+            }
         }
     }
 }
