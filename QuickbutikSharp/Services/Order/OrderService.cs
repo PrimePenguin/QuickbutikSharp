@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using QuickbutikSharp.Entities;
 using QuickbutikSharp.Extensions;
 using QuickbutikSharp.Infrastructure;
@@ -41,7 +42,7 @@ namespace QuickbutikSharp.Services.Order
                 rqBuilder.Append($"{separator}status={query.Status}");
             }
 
-            var req = PrepareRequest(rqBuilder.ToString());
+            var req = PrepareRequestForSingleEntity(rqBuilder.ToString());
             return await ExecuteRequestAsync<List<Entities.Order>>(req, HttpMethod.Get);
         }
 
@@ -67,6 +68,9 @@ namespace QuickbutikSharp.Services.Order
             if (request != null)
             {
                 var body = request.ToDictionary(x => x);
+
+                var a = JsonConvert.SerializeObject(body, Formatting.Indented);
+
                 content = new JsonContent(body);
             }
             return await ExecuteRequestAsync<Dictionary<string, UpdateOrderResponse>>(req, HttpMethod.Put, content);
