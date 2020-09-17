@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using QuickbutikSharp.Entities;
-using QuickbutikSharp.Extensions;
 using QuickbutikSharp.Infrastructure;
 
 namespace QuickbutikSharp.Services.Order
@@ -43,7 +41,7 @@ namespace QuickbutikSharp.Services.Order
                 rqBuilder.Append($"{separator}status={query.Status}");
             }
 
-            var req = PrepareRequestForSingleEntity(rqBuilder.ToString());
+            var req = PrepareRequest(rqBuilder.ToString());
             return await ExecuteRequestAsync<List<Entities.Order>>(req, HttpMethod.Get);
         }
 
@@ -52,7 +50,7 @@ namespace QuickbutikSharp.Services.Order
         /// </summary>
         public virtual async Task<Entities.Order> GetAsync(string orderId)
         {
-            var req = PrepareRequestForSingleEntity($"orders?order_id={orderId}");
+            var req = PrepareRequest($"orders?order_id={orderId}");
             var orders = await ExecuteRequestAsync<Entities.Order[]>(req, HttpMethod.Get);
             return orders[0];
         }

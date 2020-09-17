@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using QuickbutikSharp.Extensions;
@@ -19,7 +21,7 @@ namespace QuickbutikSharp.Services
 
         private static HttpClient _Client { get; } = new HttpClient();
 
-        protected Uri _ShopUri { get; set; }
+        protected Uri _ShopUri { get; set; } = new Uri("https://api.quickbutik.com");
 
         protected string _apiKey { get; set; }
 
@@ -29,7 +31,6 @@ namespace QuickbutikSharp.Services
         /// <param name="apiKey">App Secret Api Key</param>
         protected QuickbutikService(string apiKey)
         {
-            _ShopUri = BuildQuickbutikApiUri();
             _apiKey = apiKey;
 
             // If there's a global execution policy it should be set as this instance's policy.
@@ -37,24 +38,9 @@ namespace QuickbutikSharp.Services
             _ExecutionPolicy = _GlobalExecutionPolicy ?? new DefaultRequestExecutionPolicy();
         }
 
-        /// <summary>
-        /// Attempts to build a shop API <see cref="Uri"/> for the given shop. Will throw a <see cref="QuickbutikException"/> if the URL cannot be formatted.
-        /// </summary>
-        /// <exception cref="QuickbutikException">Thrown if the given URL cannot be converted into a well-formed URI.</exception>
-        /// <returns>The shop's API <see cref="Uri"/>.</returns>
-        public static Uri BuildQuickbutikApiUri()
-        {
-            return new Uri("https://api.quickbutik.com");
-        }
-
         protected RequestUri PrepareRequest(string path)
         {
-            return new RequestUri(new Uri($"https://api.quickbutik.com/v1/{path}?apiKey={_apiKey}"));
-        }
-
-        protected RequestUri PrepareRequestForSingleEntity(string path)
-        {
-            return new RequestUri(new Uri($"https://api.quickbutik.com/v1/{path}&apiKey={_apiKey}"));
+            return new RequestUri(new Uri($"https://api.quickbutik.com/v1/{path}"));
         }
 
         /// <summary>
@@ -65,7 +51,7 @@ namespace QuickbutikSharp.Services
             var msg = new CloneableRequestMessage(uri.ToUri(), method, content);
             msg.Headers.Add("Accept", "application/json");
             msg.Headers.Add("user-agent", "QuickbutikSharp");
-
+            msg.Headers.Authorization = new AuthenticationHeaderValue("Basic", Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_apiKey}:{_apiKey}")));
             return msg;
         }
 

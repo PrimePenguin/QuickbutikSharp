@@ -32,7 +32,7 @@ namespace QuickbutikSharp.Services.Product
         /// </summary>
         public virtual async Task<Entities.Product> GetAsync(string productId)
         {
-            var req = PrepareRequestForSingleEntity($"products?product_id={productId}");
+            var req = PrepareRequest($"products?product_id={productId}");
             return await ExecuteRequestAsync<Entities.Product>(req, HttpMethod.Get);
         }
 
@@ -55,7 +55,7 @@ namespace QuickbutikSharp.Services.Product
         }
 
         /// <summary>
-        /// Update products in store. <para>Product can be identified by product_id/variant_id or directly with SKU/Article Number if unique.</para> 
+        /// Update products in store. <para>Product can be identified by product_id/variant_id or directly with SKU/Article Number if unique.</para>
         /// </summary>
         /// <param name="request">product to be updated</param>
         /// <returns>The <see cref="Entities.Product"/>.</returns>
