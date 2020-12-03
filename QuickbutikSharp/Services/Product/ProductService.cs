@@ -21,9 +21,13 @@ namespace QuickbutikSharp.Services.Product
         /// <summary>
         /// Fetch products in store
         /// </summary>
-        public virtual async Task<List<Entities.Product>> GetAsync()
+        public virtual async Task<List<Entities.Product>> GetAsync(ProductListFilter filter = null)
         {
-            var req = PrepareRequest($"products");
+            var req = PrepareRequest("products");
+            if (filter != null)
+            {
+                req.QueryParams.AddRange(filter.ToQueryParameters());
+            }
             return await ExecuteRequestAsync<List<Entities.Product>>(req, HttpMethod.Get);
         }
 
@@ -32,7 +36,9 @@ namespace QuickbutikSharp.Services.Product
         /// </summary>
         public virtual async Task<Entities.Product> GetAsync(string productId)
         {
-            var req = PrepareRequest($"products?product_id={productId}");
+            var req = PrepareRequest("products");
+            var filter = new ProductListFilter { IncludeDetails = "true", Limit = 1, ProductId = productId };
+            req.QueryParams.AddRange(filter.ToQueryParameters());
             return await ExecuteRequestAsync<Entities.Product>(req, HttpMethod.Get);
         }
 
@@ -43,7 +49,7 @@ namespace QuickbutikSharp.Services.Product
         /// <returns>The <see cref="Entities.Product"/>.</returns>
         public virtual async Task<Entities.Product> CreateAsync(CreateProductRequest request)
         {
-            var req = PrepareRequest($"products");
+            var req = PrepareRequest("products");
             HttpContent content = null;
 
             if (request != null)
@@ -61,12 +67,12 @@ namespace QuickbutikSharp.Services.Product
         /// <returns>The <see cref="Entities.Product"/>.</returns>
         public virtual async Task UpdateAsync(List<UpdateInventoryRequest> request)
         {
-            var req = PrepareRequest($"products");
+            var req = PrepareRequest("products");
             HttpContent content = null;
 
             if (request != null)
             {
-                var body = request.ToDictionary(x => x);
+                var body = request.ToDictionary(c => c);
                 content = new JsonContent(body);
             }
             await ExecuteRequestAsync<object>(req, HttpMethod.Put, content);

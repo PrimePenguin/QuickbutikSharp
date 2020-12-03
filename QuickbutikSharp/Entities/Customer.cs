@@ -25,5 +25,18 @@ namespace QuickbutikSharp.Entities
         [JsonProperty("country")] public string Country { get; set; }
 
         [JsonProperty("notes")] public string Notes { get; set; }
+
+        [JsonProperty("shipping_details")] public ShippingDetails ShippingDetails { get; set; }
+    }
+
+    public class ShippingDetails
+    {
+        [JsonProperty("company_name")] public string CompanyName { get; set; }
+        [JsonProperty("full_name")] public string FullName { get; set; }
+        [JsonProperty("address")] public string Address { get; set; }
+        [JsonProperty("address2")] public string Address2 { get; set; }
+        [JsonProperty("city")] public string City { get; set; }
+        [JsonProperty("zipcode")] public string ZipCode { get; set; }
+        [JsonProperty("country")] public string Country { get; set; }
     }
 }

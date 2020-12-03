@@ -15,12 +15,9 @@ namespace QuickbutikSharp.Infrastructure
         /// <summary>
         /// Converts the object to an array of KVPs.
         /// </summary>
-        public virtual IEnumerable<KeyValuePair<string, object>> ToParameters()
+        public virtual IEnumerable<KeyValuePair<string, object>> ToQueryParameters()
         {
             var output = new List<KeyValuePair<string, object>>();
-
-            // TODO: Create a recursive function that will aggregate the declared properties for
-            // this type and this type's base type (and that type's base type, and so on).
 
             //Inspiration for this code from https://github.com/jaymedavis/stripe.net
             foreach (PropertyInfo property in GetType().GetAllDeclaredProperties())
@@ -59,14 +56,29 @@ namespace QuickbutikSharp.Infrastructure
         /// <param name="value">The property's value.</param>
         /// <param name="property">The property itself.</param>
         /// <returns>The new parameter.</returns>
-        public virtual KeyValuePair<string, object> ToSingleParameter(string propName, object value, PropertyInfo property)
+        protected virtual KeyValuePair<string, object> ToSingleParameter(string propName, object value, PropertyInfo property)
         {
-            if (value is IEnumerable<long>)
+            KeyValuePair<string, object> Join<T>(IEnumerable<T> values)
             {
-                return new KeyValuePair<string, object>(propName, string.Join(",", value as IEnumerable<long>));
+                return new KeyValuePair<string, object>(propName, string.Join(",", values));
             }
 
-            Type valueType = value.GetType();
+            switch (value)
+            {
+                case IEnumerable<long> longs:
+                    return Join(longs);
+
+                case IEnumerable<int> ints:
+                    return Join(ints);
+
+                case IEnumerable<string> strings:
+                    return Join(strings);
+
+                case IEnumerable<bool> bools:
+                    return Join(bools);
+            }
+
+            var valueType = value.GetType();
 
             if (valueType.GetTypeInfo().IsEnum)
             {

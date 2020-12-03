@@ -1,9 +1,16 @@
 ﻿using Newtonsoft.Json;
+using QuickbutikSharp.Infrastructure;
 
 namespace QuickbutikSharp.Entities
 {
-    public class OrdersQueryRequest
+    public class OrdersQueryRequest : Parameterizable
     {
+        /// <summary>
+        /// Order number for the order you would like to load
+        /// </summary>
+        [JsonProperty("order_id")]
+        public string OrderId { get; set; }
+
         /// <summary>
         /// Fetch paid orders since a specific date. UNIX timestamp should be used here. <para>Example : 1596097247</para>
         /// </summary>
@@ -22,5 +29,11 @@ namespace QuickbutikSharp.Entities
         /// </summary>
         [JsonProperty("status")]
         public string Status { get; set; }
+
+        /// <summary>
+        /// Indicates whether or not details are returned.
+        /// </summary>
+        [JsonProperty("include_details")]
+        public string IncludeDetails { get; set; }
     }
 }

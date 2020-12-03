@@ -26,8 +26,7 @@ namespace QuickbutikSharp.Infrastructure
             {
                 Query = string.Join("&", query)
             };
-            return Url;
-            //return ub.Uri;
+            return ub.Uri;
         }
 
         public override string ToString() => ToUri().ToString();

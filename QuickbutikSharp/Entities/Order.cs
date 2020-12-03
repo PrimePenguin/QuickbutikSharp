@@ -27,7 +27,7 @@ namespace QuickbutikSharp.Entities
         /// order status
         /// </summary>
         [JsonProperty("status")]
-        public string Status { get; set; }
+        public OrderStatus Status { get; set; }
 
         /// <summary>
         /// shipping amount
@@ -106,5 +106,12 @@ namespace QuickbutikSharp.Entities
         [JsonProperty("is_taxfree")] public bool IsTaxFree { get; set; }
 
         [JsonProperty("is_taxontop")] public bool IsTaxOnTop { get; set; }
+    }
+
+    public enum OrderStatus
+    {
+        Unpaid = -1,
+        Paid = 1,
+        Done = 2
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using QuickbutikSharp.Entities;
+using QuickbutikSharp.Extensions;
 using QuickbutikSharp.Infrastructure;
 
 namespace QuickbutikSharp.Services.Order
@@ -22,37 +22,14 @@ namespace QuickbutikSharp.Services.Order
         /// <summary>
         /// Fetch store orders.
         /// </summary>
-        public virtual async Task<List<Entities.Order>> GetAsync(OrdersQueryRequest query)
+        public virtual async Task<List<Entities.Order>> GetAsync(OrdersQueryRequest query = null)
         {
-            var rqBuilder = new StringBuilder();
-
-            rqBuilder.Append("orders");
-            if (!string.IsNullOrEmpty(query.FromDatePaid)) rqBuilder.Append($"?from_date_paid={query.FromDatePaid}");
-
-            if (!string.IsNullOrEmpty(query.FromStatusDate))
+            var req = PrepareRequest("orders");
+            if (query != null)
             {
-                var separator = rqBuilder.ToString().Contains("?") ? "&" : "?";
-                rqBuilder.Append($"{separator}from_status_date={query.FromStatusDate}");
+                req.QueryParams.AddRange(query.ToQueryParameters());
             }
-
-            if (!string.IsNullOrEmpty(query.Status))
-            {
-                var separator = rqBuilder.ToString().Contains("?") ? "&" : "?";
-                rqBuilder.Append($"{separator}status={query.Status}");
-            }
-
-            var req = PrepareRequest(rqBuilder.ToString());
             return await ExecuteRequestAsync<List<Entities.Order>>(req, HttpMethod.Get);
-        }
-
-        /// <summary>
-        /// Returns order with specified order id
-        /// </summary>
-        public virtual async Task<Entities.Order> GetAsync(string orderId)
-        {
-            var req = PrepareRequest($"orders?order_id={orderId}");
-            var orders = await ExecuteRequestAsync<Entities.Order[]>(req, HttpMethod.Get);
-            return orders[0];
         }
 
         /// <summary>

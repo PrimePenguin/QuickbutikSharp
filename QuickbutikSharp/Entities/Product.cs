@@ -36,6 +36,12 @@ namespace QuickbutikSharp.Entities
         public string Quantity { get; set; }
 
         /// <summary>
+        /// Quantity Location
+        /// </summary>
+        [JsonProperty("qty_location")]
+        public string QuantityLocation { get; set; }
+
+        /// <summary>
         /// price
         /// </summary>
         [JsonProperty("price")]
@@ -98,8 +104,8 @@ namespace QuickbutikSharp.Entities
         /// <summary>
         /// Category name if product should be placed into a new category.
         /// </summary>
-        [JsonProperty("headcategory_name")]
-        public string HeadCategoryName { get; set; }
+        [JsonProperty("category_name")]
+        public string CategoryName { get; set; }
 
         /// <summary>
         /// disable negative storage
