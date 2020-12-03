@@ -6,7 +6,7 @@ using QuickbutikSharp.Entities;
 using QuickbutikSharp.Extensions;
 using QuickbutikSharp.Infrastructure;
 
-namespace QuickbutikSharp.Services.Product
+namespace QuickbutikSharp.Services.Products
 {
     public class ProductService : QuickbutikService
     {
@@ -21,25 +21,34 @@ namespace QuickbutikSharp.Services.Product
         /// <summary>
         /// Fetch products in store
         /// </summary>
-        public virtual async Task<List<Entities.Product>> GetAsync(ProductListFilter filter = null)
+        public virtual async Task<List<Product>> GetAsync(ProductListFilter filter = null)
         {
             var req = PrepareRequest("products");
             if (filter != null)
             {
                 req.QueryParams.AddRange(filter.ToQueryParameters());
             }
-            return await ExecuteRequestAsync<List<Entities.Product>>(req, HttpMethod.Get);
+            return await ExecuteRequestAsync<List<Product>>(req, HttpMethod.Get);
         }
 
         /// <summary>
         /// Returns product with specified product id
         /// </summary>
-        public virtual async Task<Entities.Product> GetAsync(string productId)
+        public virtual async Task<Product> GetAsync(string productId)
         {
             var req = PrepareRequest("products");
             var filter = new ProductListFilter { IncludeDetails = "true", Limit = 1, ProductId = productId };
             req.QueryParams.AddRange(filter.ToQueryParameters());
-            return await ExecuteRequestAsync<Entities.Product>(req, HttpMethod.Get);
+            return await ExecuteRequestAsync<Product>(req, HttpMethod.Get);
+        }
+
+        /// <summary>
+        /// Returns product count
+        /// </summary>
+        public virtual async Task<ProductCountResult> CountAsync()
+        {
+            var req = PrepareRequest("products/count");
+            return await ExecuteRequestAsync<ProductCountResult>(req, HttpMethod.Get);
         }
 
         /// <summary>
@@ -47,7 +56,7 @@ namespace QuickbutikSharp.Services.Product
         /// </summary>
         /// <param name="request">Product information</param>
         /// <returns>The <see cref="Entities.Product"/>.</returns>
-        public virtual async Task<Entities.Product> CreateAsync(CreateProductRequest request)
+        public virtual async Task<Product> CreateAsync(CreateProductRequest request)
         {
             var req = PrepareRequest("products");
             HttpContent content = null;
@@ -57,7 +66,7 @@ namespace QuickbutikSharp.Services.Product
                 var body = request.ToDictionary();
                 content = new JsonContent(body);
             }
-            return await ExecuteRequestAsync<Entities.Product>(req, HttpMethod.Post, content);
+            return await ExecuteRequestAsync<Product>(req, HttpMethod.Post, content);
         }
 
         /// <summary>

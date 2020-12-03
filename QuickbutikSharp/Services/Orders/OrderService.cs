@@ -7,7 +7,7 @@ using QuickbutikSharp.Entities;
 using QuickbutikSharp.Extensions;
 using QuickbutikSharp.Infrastructure;
 
-namespace QuickbutikSharp.Services.Order
+namespace QuickbutikSharp.Services.Orders
 {
     public class OrderService : QuickbutikService
     {
@@ -22,14 +22,14 @@ namespace QuickbutikSharp.Services.Order
         /// <summary>
         /// Fetch store orders.
         /// </summary>
-        public virtual async Task<List<Entities.Order>> GetAsync(OrdersQueryRequest query = null)
+        public virtual async Task<List<Order>> GetAsync(OrdersQueryRequest query = null)
         {
             var req = PrepareRequest("orders");
             if (query != null)
             {
                 req.QueryParams.AddRange(query.ToQueryParameters());
             }
-            return await ExecuteRequestAsync<List<Entities.Order>>(req, HttpMethod.Get);
+            return await ExecuteRequestAsync<List<Order>>(req, HttpMethod.Get);
         }
 
         /// <summary>

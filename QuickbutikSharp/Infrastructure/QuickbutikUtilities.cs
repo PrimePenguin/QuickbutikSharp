@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Threading.Tasks;
-using QuickbutikSharp.Services.Product;
+using QuickbutikSharp.Services.Products;
 
 namespace QuickbutikSharp.Infrastructure
 {
@@ -41,7 +41,7 @@ namespace QuickbutikSharp.Infrastructure
             var productService = new ProductService(apiKey);
             try
             {
-                await productService.GetAsync();
+                await productService.CountAsync();
                 return true;
             }
             catch (QuickbutikException)

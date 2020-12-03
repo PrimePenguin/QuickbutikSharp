@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using QuickbutikSharp.Infrastructure;
 
-namespace QuickbutikSharp.Services.Product
+namespace QuickbutikSharp.Services.Products
 {
     public class ProductListFilter : Parameterizable
     {
