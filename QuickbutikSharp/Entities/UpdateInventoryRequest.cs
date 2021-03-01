@@ -21,5 +21,17 @@ namespace QuickbutikSharp.Entities
         /// </summary>
         [JsonProperty("stock")]
         public int? Stock { get; set; }
+
+        /// <summary>
+        /// dont allow the stock to go negative
+        /// </summary>
+        [JsonProperty("disable_minusqty")]
+        public string DisableMinusQty { get; set; }
+
+        /// <summary>
+        /// dont allow the stock to go negative
+        /// </summary>
+        [JsonProperty("visible")]
+        public string Visible { get; set; }
     }
 }
