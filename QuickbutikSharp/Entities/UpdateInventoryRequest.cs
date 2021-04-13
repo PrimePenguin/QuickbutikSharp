@@ -29,9 +29,15 @@ namespace QuickbutikSharp.Entities
         public string DisableMinusQty { get; set; }
 
         /// <summary>
+        /// Article Number - on product/variant which you would like to update.
+        /// </summary>
+        [JsonProperty("sku")]
+        public string SKU { get; set; }
+
+        /// <summary>
         /// dont allow the stock to go negative
         /// </summary>
         [JsonProperty("visible")]
-        public string Visible { get; set; }
+        public int? Visible { get; set; }
     }
 }
