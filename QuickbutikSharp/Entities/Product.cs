@@ -140,7 +140,7 @@ namespace QuickbutikSharp.Entities
         /// <summary>
         /// Visibility in store
         /// </summary>
-        [JsonProperty("visible")] public int Visible { get; set; }
+        [JsonProperty("visible")] public string Visible { get; set; }
 
         /// <summary>
         /// EAN-number / GTN (Global Trade Item Number)
