@@ -74,7 +74,7 @@ namespace QuickbutikSharp.Services.Products
         /// </summary>
         /// <param name="request">product to be updated</param>
         /// <returns>The <see cref="Entities.Product"/>.</returns>
-        public virtual async Task UpdateAsync(List<UpdateInventoryRequest> request)
+        public virtual async Task<UpdateProductResponse> UpdateAsync(List<UpdateInventoryRequest> request)
         {
             var req = PrepareRequest("products");
             HttpContent content = null;
@@ -84,7 +84,7 @@ namespace QuickbutikSharp.Services.Products
                 var body = request.ToDictionary(c => c);
                 content = new JsonContent(body);
             }
-            await ExecuteRequestAsync<object>(req, HttpMethod.Put, content);
+            return await ExecuteRequestAsync<UpdateProductResponse>(req, HttpMethod.Put, content);
         }
     }
 }
