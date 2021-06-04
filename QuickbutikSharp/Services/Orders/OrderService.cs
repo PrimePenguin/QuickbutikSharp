@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -29,7 +30,19 @@ namespace QuickbutikSharp.Services.Orders
             {
                 req.QueryParams.AddRange(query.ToQueryParameters());
             }
-            return await ExecuteRequestAsync<List<Order>>(req, HttpMethod.Get);
+
+            try
+            {
+                return await ExecuteRequestAsync<List<Order>>(req, HttpMethod.Get);
+            }
+            catch (QuickbutikException e)
+            {
+                if (e.Code == 404)
+                {
+                    return new List<Order>();
+                }
+                throw;
+            }
         }
 
         /// <summary>
