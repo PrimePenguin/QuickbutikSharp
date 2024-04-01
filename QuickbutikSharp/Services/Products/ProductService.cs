@@ -86,5 +86,14 @@ namespace QuickbutikSharp.Services.Products
             }
             return await ExecuteRequestAsync<UpdateProductResponse>(req, HttpMethod.Put, content);
         }
+
+        /// <summary>
+        /// Returns metadata associated to product with specified product id
+        /// </summary>
+        public virtual async Task<Dictionary<string, string>> GetProductMetadataAsync(string productId)
+        {
+            var req = PrepareRequest($"metadata/product/{productId}");
+            return await ExecuteRequestAsync<Dictionary<string, string>>(req, HttpMethod.Get);
+        }
     }
 }

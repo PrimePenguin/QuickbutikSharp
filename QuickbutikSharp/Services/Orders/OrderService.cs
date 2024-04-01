@@ -69,5 +69,14 @@ namespace QuickbutikSharp.Services.Orders
                 return null;
             }
         }
+
+        /// <summary>
+        /// Returns metadata associated to order with specified order id
+        /// </summary>
+        public virtual async Task<Dictionary<string, string>> GetOrderMetadataAsync(string orderId)
+        {
+            var req = PrepareRequest($"metadata/order/{orderId}");
+            return await ExecuteRequestAsync<Dictionary<string, string>>(req, HttpMethod.Get);
+        }
     }
 }
