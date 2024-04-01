@@ -146,5 +146,9 @@ namespace QuickbutikSharp.Entities
         /// EAN-number / GTN (Global Trade Item Number)
         /// </summary>
         [JsonProperty("gtin")] public string Gtin { get; set; }
+
+        [JsonProperty("datafield_1")] public string DataField1 { get; set; }
+        [JsonProperty("datafield_2")] public string DataField2 { get; set; }
+        [JsonProperty("datafield_3")] public string DataField3 { get; set; }
     }
 }
